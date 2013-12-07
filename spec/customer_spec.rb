@@ -1,13 +1,15 @@
 require_relative "../lib/customer"
 
 describe Customer do 
-  let(:customer) {Customer.new(0,"Asta","astux@inbox.lt","my address")}
+  let(:customer) {Customer.new(0,"Asta","45345345341","my address")}
   it 'should init the customer' do
     expect(customer.id).to eq(0)
     expect(customer.name).to eq("Asta")
-    expect(customer.email).to eq("astux@inbox.lt")
+    expect(customer.phone).to eq("45345345341")
     expect(customer.address).to eq("my address")
   end
-
-
+  it 'should handle the error if not valid phone' do
+     expect(lambda { customer.validate_phone("999")}).to raise_error(RuntimeError)
+  end
+  
 end

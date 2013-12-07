@@ -1,17 +1,46 @@
 GEM
   remote: https://www.rubygems.org/
   specs:
+    activesupport (4.0.2)
+      i18n (~> 0.6, >= 0.6.4)
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
+      thread_safe (~> 0.1)
+      tzinfo (~> 0.3.37)
+    atomic (1.1.14)
     builder (3.2.2)
+    i18n (0.6.9)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    mail (2.2.7)
+      activesupport (>= 2.3.6)
+      mime-types
+      treetop (>= 1.4.5)
+    mailgun (0.7)
+      multimap
+      rest-client
+    mime-types (2.0)
+    minitest (4.7.5)
     multi_json (1.8.2)
+    multimap (1.1.2)
+    polyglot (0.3.3)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    thread_safe (0.1.3)
+      atomic
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
     twilio-ruby (3.11.4)
       builder (>= 2.1.2)
       jwt (>= 0.1.2)
       multi_json (>= 1.3.0)
+    tzinfo (0.3.38)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  mail
+  mailgun
   twilio-ruby

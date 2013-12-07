@@ -1,18 +1,22 @@
+
+require_relative 'sendsms.rb'
 class Takeaway
-  def initialize(dishes, customers)
+  include SendSMS
+  def initialize(dishes, customers=[])
     @dishes = dishes
     @customers = customers
     @orders = []
   end
-  attr_reader :dishes, :orders, :customers
+
+  attr_reader :dishes, :customers
+  attr_accessor :orders
 
   def list_dishes_show
-    menu_print = "TakeAway menu: \n"
+    menu_print = "________________________________\nTakeAway menu: \n\n"
     dishes.each_with_index{|value, key|
       menu_print += "*#{key+1}* #{value.title}   £#{value.price.to_s}\n"
     }
-    menu_print += "_______________________________\,"
-    print menu_print
+    print  menu_print += "________________________________\n\n"
   end
   
   def dishes_count
@@ -23,31 +27,36 @@ class Takeaway
     @customers << customer
   end
    
-  def find_customer(customer)
+  def find_customer(customer_id)
     @customers.each{|cust| 
-      return customer if customer == cust
+      return cust if customer_id == cust.id
     }
     raise "no customer found"
   end
 
   def take_order(order,paid)
     raise "to create order need a customer" if order.customer_id == nil
-    raise " not the same sum - cancel order" if paid != order.total
-
-    if send_email?(order.customer_id, order.id) 
-      order.noticed = true
-      prepare_order(order)
-    end
-    order.status
+    raise "not the same sum - cancel order" if paid != order.total
+    make(order)
   end
   
-  def prepare_order(order)
-    order.status = :cooking
-    @orders << order
+  def make(order)
+    print "\n\nOrder processing .... please wait it could take time!\n"
+    send_sms(order.customer_id, order.id) 
+    move_to_orders(order)
   end
 
-  def send_email?(customer, order) 
-    return true
+  def move_to_orders(order)
+    @orders << order
+    # order.instance_methods
   end
+
+  def send_sms(customer_id, order_id) 
+    # set up a client to talk to the Twilio REST API
+    customer = find_customer(customer_id)
+    time_deliver = (Time.new + 60*60).strftime("%Y-%m-%d %H:%M")
+    order_id = "ORD"+order_id.to_s+"-"+customer_id.to_s
+    twilio_send(customer,time_deliver,order_id)
+end
 
 end

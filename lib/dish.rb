@@ -3,8 +3,6 @@ class Dish
     @title = title
     @price = price
     @category = category
-   # @quantity = quantity
   end
-  attr_accessor :title, :price, :category#, :quantity
-
+  attr_accessor :title, :price, :category
 end

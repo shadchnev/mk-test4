@@ -3,11 +3,11 @@ require_relative "../lib/takeaway"
 describe Takeaway do 
   let(:dish) {double(:dish,:title=>"pizza",:price=>7.0,:category=>"main")}
   let(:dish1) {double(:dish,:title=>"lazania",:price=>9.0,:category=>"main")}
-  let(:customer) {double(:customer,:id=>1,:name=>"ASTA",:email=>"astux@inbox.lt",:address=>"my address")}
-  let(:order) {double(:order,:id=>1,:customer_id=>1, :total => 50)}
+  let(:customer) {double(:customer,:id=>1,:name=>"ASTA",:phone=>"0777676676",:address=>"my address")}
+  let(:order) {double(:order,:id=>1,:customer_id=>1, :total => 50,:status=>"inprogress")}
   let(:takeaway) {Takeaway.new([dish,dish1],[])}
-  let(:order1) {double(:order,:id=>1,:customer_id=>nil, :total => 50)}
-  it 'should have init with  dishes list' do
+  let(:order1) {double(:order1,:id=>41,:customer_id=>nil, :total => 70, :status=>"inprogress")}
+  it 'should have init with  dishes list == menu' do
     expect(takeaway.dishes.count).to eq(2)
   end
   it 'shoult be 2 dishes in menu' do
@@ -19,7 +19,7 @@ describe Takeaway do
   	expect(takeaway.customers.count).to eq(1) 
   end
 
-  it 'should not take order with  no customer' do
+  it 'should add customer to customer list' do
   	takeaway.add_customers(customer)
   	expect(takeaway.customers.count).to eq(1) 
   end
@@ -27,11 +27,25 @@ describe Takeaway do
   it 'should raise error if no customer found' do
     expect(lambda { takeaway.find_customer(customer) }).to raise_error(RuntimeError)
   end
+  
   it 'should return error if  order total not same as paid sum' do
   	expect(lambda { takeaway.take_order(order,20) }).to raise_error(RuntimeError)
   end
+
   it 'should return error if  order customer id not set' do
-  	
   	expect(lambda { takeaway.take_order(order1,20) }).to raise_error(RuntimeError)
   end
+
+  it 'should add and find the customer in takeaway customer list' do
+  	takeaway.add_customers(customer)
+  	expect(takeaway.customers.count).to eq(1)
+  	looking = takeaway.find_customer(customer.id)
+    expect(looking.id).to eq(customer.id)
+  end
+
+  it 'should add order to orders list' do
+  	takeaway.move_to_orders(order) 
+    expect(takeaway.orders.count).to eq(1)
+  end
+
 end

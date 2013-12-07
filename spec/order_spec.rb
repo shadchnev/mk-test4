@@ -1,8 +1,8 @@
 require_relative "../lib/order"
 
 describe Order do 
-  let(:dish) {double(:dish,:title=>"pizza",:price=>7.0,:category=>"main",:quantity=>0)}
-  let(:dish1) {double(:dish,:title=>"lazania",:price=>9.0,:category=>"main",:quantity=>0)}
+  let(:dish) {double(:dish,:title=>"pizza",:price=>7.0,:category=>"main")}
+  let(:dish1) {double(:dish,:title=>"lazania",:price=>9.0,:category=>"main")}
   let(:order) {Order.new(1,0)}
   it 'should have init with id' do
     expect(order.id).to eq(1)
@@ -19,4 +19,10 @@ describe Order do
   	expect(order.total).to eq(21+27)
   end
 
+  it 'should change the status & notice of the order' do
+    order.update_order("cooking",true)
+    expect(order.status).to eq("cooking")
+    expect(order.noticed).to be_true
+  end
+ 
 end
