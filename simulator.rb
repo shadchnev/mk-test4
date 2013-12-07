@@ -19,7 +19,7 @@ order.add_dish_to_order(dish2,1)
 order.my_order_show
 
 paid = 23.0
-print "\ncustomer give: £"+paid.to_s+"\n"
+print "\ncustomer gave: £"+paid.to_s+"\n"
 
 takeaway.take_order(order,paid)
 order.update_order("cooking",true)
