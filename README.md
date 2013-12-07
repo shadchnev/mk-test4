@@ -2,7 +2,7 @@ Task 2 sits in branch task2:
 write a class TakeAway with gem Twilio
 
 
-for the security reason have not commit file called "./local.config.rb"
+for the security reason created file "./local.config.rb"
 the file content has personal information like twilio account_sid and so on"
 
 $account_sid = "blablabla"
