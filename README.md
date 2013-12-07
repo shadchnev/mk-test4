@@ -8,3 +8,4 @@ the file content has personal information like twilio account_sid and so on"
 $account_sid = "blablabla"
 $auth_token = "blablabla"
 $test_mode = false
+
