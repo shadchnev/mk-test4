@@ -1,4 +1,4 @@
-
+require_relative 'local.config' #this only need it require this class via irb
 require_relative 'sendsms.rb'
 class Takeaway
   include SendSMS

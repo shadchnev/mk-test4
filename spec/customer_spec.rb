@@ -2,7 +2,7 @@ require_relative "../lib/customer"
 
 describe Customer do 
   let(:customer) {Customer.new(0,"Asta","45345345341","my address")}
-  it 'should init the customer' do
+  it 'should create the customer' do
     expect(customer.id).to eq(0)
     expect(customer.name).to eq("Asta")
     expect(customer.phone).to eq("45345345341")
