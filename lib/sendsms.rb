@@ -4,7 +4,7 @@ require 'twilio-ruby'
 module SendSMS
 
   def twilio_send(customer,time_deliver,order_id)
-    puts "/nMessege on your way !!!"
+    puts "\n Messege on your way !!!"
     @client = Twilio::REST::Client.new($account_sid, $auth_token)
     account = @client.account
     if $test_mode == false 
