@@ -57,14 +57,10 @@ describe Takeaway do
     #if exist customer find customer
     takeaway.list_dishes_show
     expect(order2.selected_dishes).to eq([dish,2])
-    print "Customer order \n"+ order2.selected_dishes[1].to_s+" x "+ order2.selected_dishes[0].title
     paid = 14.0
-    print "\ncustomer give: £"+paid.to_s+"\n"
 
     takeaway.take_order(order2,paid)
     order2.update_order("cooking",true)
-    print "\n >>> Order no: ORD#{order.id}-#{customer.id} status :",order2.update_order
-    print "\n\n\n"
     expect(takeaway.orders.count).to eq(1)
   end
 
